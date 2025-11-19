@@ -6,3 +6,4 @@ python-dotenv>=1.0.0
 cryptography>=41.0.0
 gunicorn>=23.0.0
 Flask-Discord==0.1.69
+vpkg>=1.0.1

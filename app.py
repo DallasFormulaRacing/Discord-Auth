@@ -321,7 +321,7 @@ def oauth_authorize():
     return redirect(discord_url)
 
 
-@app.route("/auth/discord/callback")
+@app.route("/discord/callback")
 def discord_callback():
     """
     Discord OAuth callback.

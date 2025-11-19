@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: dallasformularacing/auth:latest
+        ports:
+        - containerPort: 5000
+        env:
+          # Public environment variables
+          - name: ISSUER
+            value: "http://localhost:5000"
+          - name: JWT_AUDIENCE
+            value: "dfr-services"
+          - name: REDIS_HOST
+            value: redis.svc.cluster.local
+            
+          # Discord secrets
+          - name: DISCORD_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: discord-secret
+                key: DISCORD_CLIENT_ID
+          - name: DISCORD_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: discord-secret
+                key: DISCORD_CLIENT_SECRET
+          - name: DISCORD_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: discord-secret
+                key: DISCORD_REDIRECT_URI
+          - name: DISCORD_BOT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: discord-secret
+                key: DISCORD_BOT_TOKEN
+          - name: DISCORD_GUILD_ID
+            valueFrom:
+              secretKeyRef:
+                name: discord-secret
+                key: DISCORD_GUILD_ID
+          
+          # OAuth secrets
+          - name: OAUTH_CLIENTS
+            valueFrom:
+              secretKeyRef:
+                name: oauth-secret
+                key: OAUTH_CLIENTS
