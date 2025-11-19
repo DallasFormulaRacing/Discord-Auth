@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: auth
 spec:
   replicas: 1
   selector:
@@ -12,9 +13,12 @@ spec:
       labels:
         app: redis
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
       - name: redis
         image: redis:latest
+        args: ["--appendonly", "yes"]
         volumeMounts:
         - mountPath: /data
           name: redis-data

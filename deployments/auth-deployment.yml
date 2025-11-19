@@ -20,12 +20,17 @@ spec:
         env:
           # Public environment variables
           - name: ISSUER
-            value: "http://localhost:5000"
+            value: "https://api.dallasformularacing.com/v1/auth"
           - name: JWT_AUDIENCE
             value: "dfr-services"
           - name: REDIS_HOST
-            value: redis.svc.cluster.local
-            
+            value: redis.auth.svc.cluster.local
+          - name: REDIS_PORT
+            value: "6379"
+          - name: PRIVATE_KEY_PATH
+            value: "/etc/rsa-keys/private_key.pem"
+          - name: PUBLIC_KEY_PATH
+            value: "/etc/rsa-keys/public_key.pem"
           # Discord secrets
           - name: DISCORD_CLIENT_ID
             valueFrom:
@@ -59,3 +64,11 @@ spec:
               secretKeyRef:
                 name: oauth-secret
                 key: OAUTH_CLIENTS
+        volumeMounts:
+          - name: rsa-keys
+            mountPath: /etc/rsa-keys
+            readOnly: true
+      volumes:
+        - name: rsa-keys
+          secret:
+            secretName: rsa-keys

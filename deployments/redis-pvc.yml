@@ -2,9 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-data
-  annotations:
-    volume.beta.kubernetes.io/storage-class: longhorn
+  namespace: auth
 spec:
+  storageClassName: longhorn
   accessModes:
   - ReadWriteOnce
   resources:
