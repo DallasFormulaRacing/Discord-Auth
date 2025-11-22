@@ -2,6 +2,8 @@
 """
 Generate RSA keypair for JWT signing.
 Run this once during setup.
+
+This is ALL AI GENERATED CODE, its just used for generating local keys for testing purposes.
 """
 
 from cryptography.hazmat.primitives.asymmetric import rsa
