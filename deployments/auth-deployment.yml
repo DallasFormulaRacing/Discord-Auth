@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: dallasformularacing/auth:b9a1bba4ac028aab5b2ac15bbade22768947cb57
+        image: dallasformularacing/auth:356c997b43857575d4b87a1e8f6708b3e4da3e97
         ports:
         - containerPort: 5000
         env:
